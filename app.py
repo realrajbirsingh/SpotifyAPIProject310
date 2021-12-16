@@ -1,21 +1,14 @@
 from flask import Flask
 from flask import request, redirect
 
-import os
 import json
 import base64
 import requests
-import urllib.parse
 from spotifyclient import SpotifyClient
 
 app = Flask(__name__)
 
-#spotify_client = SpotifyClient(os.getenv("SPOTIFY_AUTHORIZATION_TOKEN"),
-#                                   os.getenv("SPOTIFY_USER_ID"))
-
-
-
-spotify_client = None #SpotifyClient("BQBS-oIzhRIb8EuuGH-76VKhsJtThMy2D0wVugwLKZdpGo16ZV0_j5CXMuK777v9BS2dQAh3T_7w0j-BMOUVB4I5HTE5gegbxa0Stdg4FCkNoHrtbiHdU8O2FAV7Jo3SXw1N_TSazYjN-yD1n8tZvjSxi4objVyNzvTwxsWn9zFH_J_zVP5N7kYM0CvWZk7WHYCKDT-khzPbNvHkkXgigW4Z-fsZWC68xbPEJjiT", "12143085512")
+spotify_client = None
 
 client_id = "863e4af9e14c4748be4d638fad066a68"
 client_secret = "199511ad2e294e64aaec1aa7f9ad22e8"
@@ -50,7 +43,7 @@ def callback():
     auth_code = requests.get(AUTH_URL, {
         'client_id': client_id,
         'response_type': 'code',
-        'redirect_uri': 'http://localhost:5000/callback',
+        'redirect_uri': 'https://rajbirsingh.pythonanywhere.com/callback',
         'scope': 'playlist-modify-private',
     })
 
@@ -63,7 +56,7 @@ def callback():
     payload = {
         'grant_type': 'authorization_code',
         'code': our_code,
-        'redirect_uri': 'http://localhost:5000/callback',
+        'redirect_uri': 'https://rajbirsingh.pythonanywhere.com/callback',
     }
 
     # Make a request to the /token endpoint to get an access token
