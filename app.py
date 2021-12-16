@@ -1,5 +1,5 @@
-from flask import Flask
-from flask import request, redirect
+from flask import Flask, request, redirect, Response
+from flask_cors import CORS
 
 import json
 import base64
@@ -7,29 +7,33 @@ import requests
 from spotifyclient import SpotifyClient
 
 app = Flask(__name__)
+CORS(app)
 
-spotify_client = None
+info = {
+    "client": None
+}
 
+red = "https://rajbirsingh.pythonanywhere.com/callback"
 client_id = "863e4af9e14c4748be4d638fad066a68"
 client_secret = "199511ad2e294e64aaec1aa7f9ad22e8"
 
 @app.route("/")
 def root():
-    return "Poggers"
+    return "Base route is working"
 
 
 @app.route("/get_recs", methods=["GET"])
 def get_recently_played():
-    if spotify_client is None:
-        return "Bad request!", 400
-    
     limit = request.args["limit"]
 
-    tracks = spotify_client.get_last_played_tracks(limit)
-    recommendations = spotify_client.get_track_recommendations(tracks)
+    tracks = info["client"].get_last_played_tracks(limit)
+    recommendations = info["client"].get_track_recommendations(tracks)
     resp = json.dumps(recommendations)
-    resp.headers.add("Access-Control-Allow-Origin", "*")
-    return resp
+
+    toReturn = Response(resp, mimetype='application/json')
+    toReturn.headers['Access-Control-Allow-Origin'] = '*'
+
+    return toReturn
 
 @app.route("/callback", methods=["GET"])
 def callback():
@@ -43,7 +47,7 @@ def callback():
     auth_code = requests.get(AUTH_URL, {
         'client_id': client_id,
         'response_type': 'code',
-        'redirect_uri': 'https://rajbirsingh.pythonanywhere.com/callback',
+        'redirect_uri': red,
         'scope': 'playlist-modify-private',
     })
 
@@ -56,7 +60,7 @@ def callback():
     payload = {
         'grant_type': 'authorization_code',
         'code': our_code,
-        'redirect_uri': 'https://rajbirsingh.pythonanywhere.com/callback',
+        'redirect_uri': red,
     }
 
     # Make a request to the /token endpoint to get an access token
@@ -70,8 +74,7 @@ def callback():
     # build request to get the user id
 
     headers = {
-        "Authorization": f"Bearer {access_token}",
-        "Content-Type": "application/json",
+        "Authorization": f"Bearer {access_token}"
     }
 
     user_profile_request = requests.get(BASE_URL + "me", headers=headers)
@@ -79,7 +82,7 @@ def callback():
     user_id = json1["id"]
 
     # Instantiate spotify client so it is no longer none
-    spotify_client = SpotifyClient(access_token, user_id)
+    info["client"] = SpotifyClient(access_token, user_id)
 
     return redirect("https://realrajbirsingh.github.io/SpotifyAPIProject310/index.html")
 
