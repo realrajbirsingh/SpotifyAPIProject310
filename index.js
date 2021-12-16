@@ -1,9 +1,7 @@
 
-var client_id = '863e4af9e14c4748be4d638fad066a68'; // Your client id
-var client_secret = '199511ad2e294e64aaec1aa7f9ad22e8'; // Your secret
-// var redirect_uri = 'file:///Users/rajbirsingh/SpotifyAPIProject310/frontend/index.html'; // Your redirect uri
-
-var redirect_uri = 'http://localhost:5000/callback'// 'https://rajbirsingh.pythonanywhere.com/callback'
+var client_id = '863e4af9e14c4748be4d638fad066a68';
+var client_secret = '199511ad2e294e64aaec1aa7f9ad22e8';
+var redirect_uri = 'https://rajbirsingh.pythonanywhere.com/callback'
 
 function test(event) {
     let button = document.getElementById("getRecsButton")
