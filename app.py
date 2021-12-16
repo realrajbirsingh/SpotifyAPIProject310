@@ -35,7 +35,7 @@ def callback():
 
     # Do some shit to get the auth tokens and all that
 
-    return redirect("file:///Users/rajbirsingh/SpotifyAPIProject310/frontend/index.html")
+    return redirect("https://realrajbirsingh.github.io/SpotifyAPIProject310/index.html")
 
 
 if __name__== "__main__":
