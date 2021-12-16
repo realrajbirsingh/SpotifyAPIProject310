@@ -22,11 +22,15 @@ class SpotifyClient:
         :param limit (int): Number of tracks to get. Should be <= 50
         :return tracks (list of Track): List of last played tracks
         """
-        url = f"https://api.spotify.com/v1/me/player/recently-played?limit={limit}"
+        url = f"https://api.spotify.com/v1/me/player/recently-played?limit={limit}&after={1608105790000}"
         response = self._place_get_api_request(url)
         response_json = response.json()
+        print(response_json)
         tracks = [Track(track["track"]["name"], track["track"]["id"], track["track"]["artists"][0]["name"]) for
                   track in response_json["items"]]
+
+        #tracks = [{"name": track["track"]["name"], "id": track["track"]["id"], "artist_name": track["track"]["artists"][0]["name"]} for track in response_json["items"]]
+
         return tracks
 
     def get_track_recommendations(self, seed_tracks, limit=50):
@@ -42,8 +46,11 @@ class SpotifyClient:
         url = f"https://api.spotify.com/v1/recommendations?seed_tracks={seed_tracks_url}&limit={limit}"
         response = self._place_get_api_request(url)
         response_json = response.json()
-        tracks = [Track(track["name"], track["id"], track["artists"][0]["name"]) for
-                  track in response_json["tracks"]]
+
+        tracks = [{"name": track["name"], "id": track["id"], "artist_name": track["artists"][0]["name"]} for track in response_json["tracks"]]
+
+        #tracks = [Track(track["name"], track["id"], track["artists"][0]["name"]) for
+                  #track in response_json["tracks"]]
         return tracks
 
     def create_playlist(self, name):
@@ -98,3 +105,4 @@ class SpotifyClient:
             }
         )
         return response
+
