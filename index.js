@@ -27,7 +27,7 @@ function getRecommendations() {
     }).then(function(json) {
         console.log(data)
     }).catch(function(error) {
-        alert("An error occurred: ", err)
+        alert("An error occurred: ", error)
     })
 }
 

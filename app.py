@@ -28,7 +28,7 @@ def get_recently_played():
     tracks = spotify_client.get_last_played_tracks(limit)
     recommendations = spotify_client.get_track_recommendations(tracks)
     resp = json.dumps(recommendations)
-
+    resp.headers.add("Access-Control-Allow-Origin", "*")
     return resp
 
 @app.route("/callback", methods=["GET"])
