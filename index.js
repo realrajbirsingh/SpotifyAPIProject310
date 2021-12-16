@@ -29,6 +29,7 @@ function getRecommendations() {
         for (var i = 0; i < json.length; i++) {
             htmlout += "<li>" + json[i].name + "</li>";
         }
+        document.getElementById("recommendationHolder").innerHTML = htmlout
     }).catch(function(error) {
         alert("An error occurred: ", error)
     })
