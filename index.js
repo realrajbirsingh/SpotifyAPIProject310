@@ -25,7 +25,10 @@ function getRecommendations() {
 
         return Promise.reject("ASDFASDFASDFASDF");
     }).then(function(json) {
-        console.log(json)
+        htmlout = ""
+        for (var i = 0; i < json.length; i++) {
+            htmlout += "<li>" + json[i].name + "</li>";
+        }
     }).catch(function(error) {
         alert("An error occurred: ", error)
     })
