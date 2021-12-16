@@ -1,7 +1,7 @@
 
 var client_id = '863e4af9e14c4748be4d638fad066a68';
-var redirect_uri = 'http://localhost:5000/callback'//'https://rajbirsingh.pythonanywhere.com/callback'
-var fetchurl = 'http://localhost:5000/get_recs?limit=5'; //'https://rajbirsingh.pythonanywhere.com/get_recs?limit=5'
+var redirect_uri = 'https://rajbirsingh.pythonanywhere.com/callback'
+var fetchurl = 'https://rajbirsingh.pythonanywhere.com/get_recs?limit=5'
 function test(event) {
     let button = document.getElementById("getRecsButton")
     alert("You pressed a button!")
