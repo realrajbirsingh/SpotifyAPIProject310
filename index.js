@@ -1,6 +1,5 @@
 
 var client_id = '863e4af9e14c4748be4d638fad066a68';
-var client_secret = '199511ad2e294e64aaec1aa7f9ad22e8';
 var redirect_uri = 'https://rajbirsingh.pythonanywhere.com/callback'
 
 function test(event) {
