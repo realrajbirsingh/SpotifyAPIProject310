@@ -24,6 +24,10 @@ def root():
 
 @app.route("/get_recs", methods=["GET"])
 def get_recently_played():
+    if info["client"] is None:
+        print("AHHHHHHH THE CLIENT OBJECT ISN'T HERE")
+        return "Error", 400
+
     limit = request.args["limit"]
 
     tracks = info["client"].get_last_played_tracks(limit)
@@ -78,6 +82,7 @@ def callback():
     }
 
     user_profile_request = requests.get(BASE_URL + "me", headers=headers)
+    print(user_profile_request.content)
     json1 = user_profile_request.json()
     user_id = json1["id"]
 

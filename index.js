@@ -25,7 +25,7 @@ function getRecommendations() {
 
         return Promise.reject("ASDFASDFASDFASDF");
     }).then(function(json) {
-        console.log(data)
+        console.log(json)
     }).catch(function(error) {
         alert("An error occurred: ", error)
     })
