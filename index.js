@@ -36,6 +36,7 @@ function getRecommendations() {
 }
 
 function startLoginFlow() {
+
     var params = {
         scope: 'user-read-recently-played playlist-modify-public playlist-modify-private playlist-read-private user-read-private user-read-email',
         response_type: 'code',
